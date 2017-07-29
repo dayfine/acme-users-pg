@@ -5,7 +5,7 @@
   "main": "db.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "DATABASE_URL=postgres://localhost/acme_users node server.js",
+    "start": "node server.js",
     "start:dev": "DATABASE_URL=postgress://localhost/acme_users nodemon server.js"
   },
   "repository": {
