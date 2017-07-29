@@ -1,31 +1,34 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
-  <div class='container'>
-    <div class='col-md-12 col-xl-8'>
-      <h3>Here is  for {{type}} Group</h3>
-
+  <div class = 'container'>
+    <div class ='col-md-12'>
+      <h3>List of {{type}}</h3>
+    </div>
 
     {% for user in users %}
-    <div class='col-xs-6 col-sm-4 col-md-3'>
+    <div class='col-xs-6 col-sm-4 col-md-3 col-lg-2'>
       <div class ='panel panel-info'>
-        <div class='panel-heading' style="min-height: 50px; max-height: 50px;"><strong>{{user.name}}</strong></div>
-        <div class='panel-body' style="min-height: 100px; max-height: 100px;">
-          <form method='POST' action='/categories/{{current}}/products/{{product.id}}?_method=DELETE'>
+
+        <div class='panel-heading'>
+          <strong>{{user.name}}</strong>
+        </div>
+
+        <div class='panel-body form-inline'>
+          {% if type !== "managers" %}
+          <form method='POST' action='/users/{{user.id}}?_method=PUT' class='form-group col-xs-6'>
+            <button class='btn btn-success'>Promote</button>
+          </form>
+
+          <form method='POST' action='/users/{{user.id}}?_method=DELETE' class='form-group col-xs-6'>
             <button class='btn btn-danger'>Delete</button>
           </form>
+          {% endif %}
         </div>
+
       </div>
     </div>
     {% endfor %}
 
   </div>
-
-  <footer class='container'>
-    <form method='POST' class='col-md-12' action='/categories/{{current}}?_method=DELETE'>
-      <button class='btn btn-danger'>Delete Category</button>
-    </form>
-  </footer>
-
 {% endblock %}

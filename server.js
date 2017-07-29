@@ -16,13 +16,9 @@ app.use('/users', routes)
 
 app.get('/', function (req, res) {
   db.getUsers().then(function (users) {
-    let pre = JSON.stringify(users).split('},').join('},\n')
-    res.render('index', {usersJSON: pre})
+    let usersJSON = JSON.stringify(users).split('},').join('},\n')
+    res.render('index', {usersJSON})
   })
-})
-
-app.use(function (err, req, res, next) {
-  res.render('error', { error: err })
 })
 
 app.listen(port, function () {
@@ -31,5 +27,11 @@ app.listen(port, function () {
   .then(() => db.seed())
   .then(() => db.getUsers())
   .then((users) => console.log(users))
+  .then(() => db.getUserTypes())
+  .then((types) => console.log(types))
   .catch(err => console.log(err))
+})
+
+app.use(function (err, req, res, next) {
+  res.render('error', { error: err.stack })
 })

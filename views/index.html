@@ -6,16 +6,27 @@
 
     <div class='col-md-12'>
       <h3>Welcome Aboard!</h3>
-      <h5>Please add yourself to team directory</h5>
+      <h4>Please add yourself to team directory</h4>
+       <br />
     </div>
 
-    <form method='POST' action='/users'>
-      <div class='col-xs-12 col-md-9 form-group'>
+    <form method='POST' action='/users' class='col-md-12'>
+      <div class='form-group '>
         <input name='name' placeholder='Your Name' class='form-control'/>
       </div>
-      <div class='col-xs-4 col-md-3 form-group'>
-        <button class='btn btn-primary'>Add User</button>
+
+      <div class='form-inline'>
+          <label for='chooseType'>User Type</label>
+          <select class='custom-select' id='chooseType' name='type'>
+            <option selected>Choose...</option>
+            <option value='user'>User</option>
+            <option value='team leader'>Team Leader</option>
+            <option value='manager'>Manager</option>
+          </select>
+
+          <button class='btn btn-primary'>Add User</button>
       </div>
+
     </form>
 
   </div>
