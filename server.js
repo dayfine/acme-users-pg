@@ -15,11 +15,14 @@ app.use(require('method-override')('_method'))
 app.use('/users', routes)
 
 app.get('/', function (req, res) {
-  res.render('index', {})
+  db.getUsers().then(function (users) {
+    let pre = JSON.stringify(users).split('},').join('},\n')
+    res.render('index', {usersJSON: pre})
+  })
 })
 
 app.use(function (err, req, res, next) {
-  res.render('error', { error: error })
+  res.render('error', { error: err })
 })
 
 app.listen(port, function () {

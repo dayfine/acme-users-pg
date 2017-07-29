@@ -67,6 +67,7 @@ function getUser (id) {
 }
 
 function createUser (name, type) {
+  type = type || 'user'
   return query('INSERT INTO users (name, type) VALUES ($1, $2) RETURNING id', [name, type ])
     .then(result => result.rows[0].id)
 }

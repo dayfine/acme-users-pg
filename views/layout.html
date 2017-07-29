@@ -7,15 +7,24 @@
   </head>
 
   <body>
-    <div class='container'>
+    <div class = 'container'>
       <h1>Welcome to AMCE!!!</h1>
-      <nav class = 'nav navtabs'>
-
+      <nav class = 'nav nav-tabs'>
+        <li class= '{% if current===undefined %}active{% endif %}''><a href='/'>Home</a></li>
+        <li class= '{% if current===x %}active{% endif %}''><a href='/users'>Users</a></li>
+        <li class= '{% if current===x %}active{% endif %}''><a href='/users/team%20leader'>Team Leaders</a></li>
+        <li class= '{% if current===x %}active{% endif %}''><a href='/users/manager'>Managers</a></li>
       </nav>
     {% block content %}
 
     {% endblock %}
+
+      <footer>
+        <pre class='col-xs-9 col-md-6'>{{usersJSON}}</pre>
+      </footer>
     </div>
+
+
     <script scr='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'></script>
   </body>
 </html>
