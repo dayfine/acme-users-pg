@@ -21,6 +21,11 @@ app.get('/', function (req, res) {
   })
 })
 
+app.use(function (err, req, res, next) {
+  res.status(500)
+  res.render('error', { error: err })
+})
+
 app.listen(port, function () {
   console.log(`listening on port ${port}`)
   db.sync()
@@ -30,8 +35,4 @@ app.listen(port, function () {
   .then(() => db.getUserTypes())
   .then((types) => console.log(types))
   .catch(err => console.log(err))
-})
-
-app.use(function (err, req, res, next) {
-  res.render('error', { error: err.stack })
 })

@@ -23,7 +23,7 @@ function sync () {
     CREATE TYPE user_type AS ENUM ('user', 'team leader', 'manager');
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
-      name CHARACTER VARYING(255) UNIQUE,
+      name CHARACTER VARYING(255) UNIQUE NOT NULL CHECK (name <> ''),
       type user_type
     );`
   return query(initDb)
@@ -47,7 +47,6 @@ function seed () {
     createUser('Silva Zoldyck', 'user')
   ])
   .then(result => console.log(result))
-  .catch(err => next(err))
 }
 
 function getUserTypes () {
@@ -59,7 +58,6 @@ function getUserTypes () {
     ;`
   return query(getTypes)
     .then(result => result.rows)
-    .catch(err => next(err))
 }
 
 function getUsers (byType) {
@@ -69,32 +67,27 @@ function getUsers (byType) {
 
   return query('SELECT * FROM users' + condition, arg)
     .then(result => result.rows)
-    .catch(err => next(err))
 }
 
 function getUser (id) {
   return query('SELECT * FROM users WHERE id = ($1)', [id])
     .then(result => result.rows[0])
-    .catch(err => next(err))
 }
 
 function createUser (name, type) {
   return query('INSERT INTO users (name, type) VALUES ($1, $2) RETURNING id', [name, type])
     .then(result => result.rows[0].id)
-    .catch(err => next(err))
 }
 
 function updateUser (name, type) {
   console.log('updated called with ' + arguments.toString())
   return query('UPDATE users SET type = ($2) WHERE name = ($1) RETURNING id', [name, type])
     .then(result => result.rows[0].id)
-    .catch(err => next(err))
 }
 
 function deleteUser (id) {
   return query('DELETE FROM users WHERE id = ($1)', [id])
     .then(result => result.rows)
-    .catch(err => next(err))
 }
 
 module.exports = {sync, seed, getUsers, getUser, createUser, updateUser, deleteUser, getUserTypes}
