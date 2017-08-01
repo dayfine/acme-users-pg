@@ -3,8 +3,6 @@ const
   db = require('../db'),
   bodyParser = require('body-parser')
 
-let usersJSON = ''
-
 router
   .use(bodyParser.urlencoded({extended: false}))
 
@@ -43,10 +41,6 @@ router
     db.deleteUser(req.params.id)
     .then((result) => res.redirect('back'))
     .catch(err => next(err))
-  })
-
-  .use(function (err, req, res, next) {
-    next(err)
   })
 
 module.exports = router

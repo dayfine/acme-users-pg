@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 })
 
 app.use(function (err, req, res, next) {
-  res.status(500)
+  res.status(err.status || 500)
   res.render('error', { error: err })
 })
 
