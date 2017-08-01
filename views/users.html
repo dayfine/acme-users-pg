@@ -15,13 +15,19 @@
         </div>
 
         <div class='panel-body form-inline'>
-          {% if type !== "managers" %}
-          <form method='POST' action='/users/{{user.id}}?_method=PUT' class='form-group col-xs-6'>
+          {% if user.type !== "manager" %}
+          <form method='POST' action='/users/{{user.id}}?_method=PUT' class='form-group'>
             <button class='btn btn-success'>Promote</button>
           </form>
 
-          <form method='POST' action='/users/{{user.id}}?_method=DELETE' class='form-group col-xs-6'>
+          <form method='POST' action='/users/{{user.id}}?_method=DELETE' class='form-group'>
             <button class='btn btn-danger'>Delete</button>
+          </form>
+          {% else %}
+          <form class='form-group'>
+            <label class='btn btn-info'>
+               &#x2B50;&nbsp; &nbsp; &nbsp;  Manager &nbsp; &nbsp; &nbsp; &#x2B50;
+              </label>
           </form>
           {% endif %}
         </div>

@@ -7,10 +7,11 @@ router
   .use(bodyParser.urlencoded({extended: false}))
 
   .get('/:type?', function (req, res, next) {
-    let type = req.params.type || 'users'
+    let type = req.params.type
     db.getUsers(type)
     .then(function (users) {
       let usersJSON = JSON.stringify(users).split('},').join('},\n')
+      if (type === undefined) type = 'users'
       res.render('users', {users, type, usersJSON})
     })
     .catch(err => next(err))
